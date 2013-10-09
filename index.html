@@ -1,0 +1,35 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> 
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
+
+        <title>Coord Finder utility by Dataninja</title> 
+
+        <!-- jQuery -->
+        <script type="text/javascript" src="http://www.dataninja.it/libs/jquery/jquery.min.js"></script>
+
+        <!-- Google Maps API javascript -->
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAM-5rwm1iCmJtJVal-rOKolO6qswft86U&sensor=false"></script>
+        <script type="text/javascript" src="http://www.dataninja.it/libs/google/maps/vectorMarkerAnimate/vectorMarkerAnimate.js"></script>
+        <script type="text/javascript" src="coordfinder.js"></script>
+
+        <style type="text/css">
+            body { height: 100%; margin: 0px; padding: 10px; }
+            #map_canvas { height: 612px; width: 1024px; }
+            div.marker { padding: 0; margin: 0; }
+        </style>
+    </head>
+
+    <body onload="initialize()">
+        <h1>Coord Finder v0.1</h1>
+        <p>Cerca il luogo approssimativo sulla mappa: <input size="25" id="place"><input type="button" value="Cerca" id="search"> (recenti: <select id="places"></select>).</p>
+        <p>Clicca sulla mappa per aggiungere un marker.</p>
+        <p>Eventualmente modifica il valore del raggio del cerchio: <input id="radius" size="6" value="10"> <select id="is"><option value="km">km</option><option value="nm">nm</option></select>.</p>
+        <p>Trascina il marker per posizionarlo con la massima precisione.</p>
+        <p>Le attuali coordinate della posizione del marker sono <input size="40" id="coord_latlng"> (lat [TAB] lon).</p>
+        <div id="map_canvas"></div>
+    </body> 
+
+</html>
+
