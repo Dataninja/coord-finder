@@ -1,11 +1,28 @@
-<!DOCTYPE html> 
-<html> 
-    <head> 
-        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> 
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="http://www.dataninja.it/wp-content/themes/ninja_ico.jpg">
 
-        <title>Coord Finder utility by Dataninja</title> 
+    <title>Trova le coordinate geografiche! | Coord Finder | by Dataninja</title>
 
+    <!-- Bootstrap core CSS -->
+    <link href="http://utilities.dataninja.it/bootstrap/bootstrap-3.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="offcanvas.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- COORDFINDER Inizio -->
+    
         <!-- jQuery -->
         <script type="text/javascript" src="http://www.dataninja.it/libs/jquery/jquery.min.js"></script>
 
@@ -13,23 +30,100 @@
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAM-5rwm1iCmJtJVal-rOKolO6qswft86U&sensor=false"></script>
         <script type="text/javascript" src="http://www.dataninja.it/libs/google/maps/vectorMarkerAnimate/vectorMarkerAnimate.js"></script>
         <script type="text/javascript" src="coordfinder.js"></script>
-
+		  
+	<!-- stile mappa prov
         <style type="text/css">
-            body { height: 100%; margin: 0px; padding: 10px; }
             #map_canvas { height: 612px; width: 1024px; }
             div.marker { padding: 0; margin: 0; }
         </style>
-    </head>
+	-->
+    
+    <!-- COORDFINDER Fine-->
+    
+  </head>
 
-    <body onload="initialize()">
-        <h1>Coord Finder v0.1</h1>
-        <p>Cerca il luogo approssimativo sulla mappa: <input size="25" id="place"><input type="button" value="Cerca" id="search"> (recenti: <select id="places"></select>).</p>
-        <p>Clicca sulla mappa per aggiungere un marker.</p>
-        <p>Eventualmente modifica il valore del raggio del cerchio: <input id="radius" size="6" value="10"> <select id="is"><option value="km">km</option><option value="nm">nm</option></select>.</p>
-        <p>Trascina il marker per posizionarlo con la massima precisione.</p>
-        <p>Le attuali coordinate della posizione del marker sono <input size="40" id="coord_latlng"> (lat [TAB] lon).</p>
-        <div id="map_canvas"></div>
-    </body> 
+  <body onload="initialize()">
+    <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="./">Trova le coordinate geografiche! | Coord Finder</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="https://github.com/jenkin/coord-finder">Github</a></li>
+            <li><a href="http://utilities.dataninja.it/">Tutti gli strumenti</a></li>
+            <li><a href="http://www.dataninja.it">Dataninja.it</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div><!-- /.container -->
+    </div><!-- /.navbar -->
 
+    <div class="container">
+
+      <div class="row row-offcanvas row-offcanvas-right" style="margin-top:75px">
+        <div class="col-xs-12 col-sm-9" style="float:right;">
+          <p class="pull-right visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+          </p>
+          <div class="row">
+            <div class="col-6 col-sm-6 col-lg-4">
+              <h4>Trova le coordinate</h4>
+              <p>Inserisci il nome di una località o un indirizzo e trova le coordinate.</p>
+              <!--<p><a class="btn btn-default" href="#">View details &raquo;</a></p>-->
+            </div><!--/span-->
+            <div class="col-6 col-sm-6 col-lg-4">
+              <h4>Crea un marker</h4>
+              <p>Clicca sulla mappa per aggiungere un marker e trovare le coordinate</p>
+              <!--<p><a class="btn btn-default" href="#">View details &raquo;</a></p>-->
+            </div><!--/span-->
+            <div class="col-6 col-sm-6 col-lg-4">
+              <h4>Sposta il marker</h4>
+              <p>Trascina il marker per posizionarlo con precisione ed ottenere le coordinate. </p>
+              <!--<p><a class="btn btn-default" href="#">View details &raquo;</a></p>-->
+            </div><!--/span-->
+          </div><!--/row-->
+          <div class="jumbotron">
+	    <div id="map_canvas"></div>
+	  </div>
+
+        </div><!--/span-->
+
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+          <div class="well sidebar-nav">
+            <ul class="nav">
+              <li><h4>Cosa puoi fare?</h4></li>
+
+              <!-- COORDFINDER html - Inizio -->
+              <li><p>Cerca un luogo sulla mappa: <input size="25" id="place"><!--<input type="button" value="Cerca" id="search">--> Ultimi: <select id="places"></select></p></li>
+	      <li><p>Se serve, modifica il valore del raggio del cerchio: <input id="radius" size="1" value="10"> <select id="is"><option value="km">km</option><option value="nm">nm</option></select> </p></li>
+              <li><p>Le attuali coordinate della posizione del marker: <br><input size="40" id="coord_latlng" disabled> (lat [TAB] lon)</p></li>
+              <!-- COORDFINDER html - Fine -->
+              
+              </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+      </div><!--/row-->
+
+<!--       <hr> -->
+
+      <footer>
+        <p>CC-BY 2013 | Coord Finder by <a href="http://dataninja.it">Dataninja.it</a></p>
+      </footer>
+
+    </div><!--/.container-->
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../bootstrap/bootstrap-3.0.0/assets/js/jquery.js"></script>
+    <script src="../bootstrap/bootstrap-3.0.0/dist/js/bootstrap.min.js"></script>
+    <!--<script src="offcanvas.js"></script>-->
+  </body>
 </html>
-

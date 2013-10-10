@@ -29,7 +29,7 @@ function initialize() {
 
     var radius = parseInt($("#radius").val())*1000,
         canvas = "map_canvas",
-        center_coord_lat = 38.347796180163584,
+        center_coord_lat = 42.347796180163584,
         center_coord_lon = 15.27074967642476;
 
     map = new google.maps.Map(document.getElementById(canvas), {
@@ -82,7 +82,8 @@ function initialize() {
 
     $("#coord_latlng").change(function(e) { $(this).val(coord_lat + "\t" + coord_lng); });
 
-    $("#search").click(function(e) {
+    //$("#search").click(function(e) {
+    $("#place").change(function(e) {
             var place = $("#place").val();
             if (coordPlaces.hasOwnProperty(place)) {
                 $("select#places").val(place);
